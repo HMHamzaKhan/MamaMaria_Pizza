@@ -1,0 +1,11 @@
+﻿ @foreach (var item in ViewBag.cartList)
+{
+    <tr id="rowcart" data-name="@item.ItemName">
+        <td class="align-middle"><img style="height:70px; width:70px;" src="~/content/images/@item.ItemImage" /></td>
+        <th class="align-middle" scope="row">@item.ItemName</th>
+        <td class="align-middle">@item.ItemDesc</td>
+        <th class="align-middle" scope="row">@item.ItemQuantity</th>
+        <td class="align-middle" id="price" class="price">@item.ItemPrice $</td>
+    </tr>
+ }
+

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Pizza.Item>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.itemDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MeasuringUnit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemType.itemTypeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserTable.UserPassword)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.itemDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MeasuringUnit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemType.itemTypeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserTable.UserPassword)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemId })
+        </td>
+    </tr>
+}
+
+</table>

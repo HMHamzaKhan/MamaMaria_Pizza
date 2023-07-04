@@ -1,0 +1,51 @@
+﻿@model Pizza.StockHistory
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StockHistory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.quantityConsumed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantityConsumed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Stock.QuantityRemainig)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock.QuantityRemainig)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.stockHistoryID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

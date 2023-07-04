@@ -1,0 +1,274 @@
+﻿@model Pizza.Models.GetAllChickenDelight
+@{
+    ViewBag.Title = "Add To Cart";
+}
+
+
+
+
+
+
+<div class="justify-content-center ftco-animate mt-5  heading-section">
+    <h1 style="text-align:center;" id="name"> @Model.ChickenName </h1>
+    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+</div>
+
+<section class="ftco-menu">
+    <div class="container-fluid">
+        <div class="row d-md-flex">
+            <div class="col-lg-4 ftco-animate img f-menu-img mb-5 mb-md-0 justify-content-center" style="padding:25px;">
+                <img src="~/Content/images/@Model.ChickenImage" /> <p style="visibility:hidden;" id="img">@Model.ChickenImage</p><p style="visibility:hidden;" id="id"> @Model.ChickenID </p>
+            </div>
+            <div class="col-lg-8 ftco-animate p-md-5 fadeInUp ftco-animated">
+                <div class="row">
+                    <div class="col-md-12 nav-link-wrap mb-5">
+                        <div class=" ftco-animate">
+
+                            <h1> Description </h1>
+
+                            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+                            <p id="desc"><b>@Model.CheckenDesc</b></p>
+
+                            <div class="row">
+                                <h4>&nbsp; Pieces : &nbsp;</h4> <h4 id="piece">
+                                    @Html.DropDownList("pieces", "-- Select Pieces --")
+                                </h4>
+                            </div>
+                            <div class="row">
+                                <h4>&nbsp; Price : &nbsp;</h4> <h4 id="price"></h4><h4 id="dollar" style="visibility:hidden;">$</h4>
+                            </div>
+
+
+                            <div class="checkboxes">
+
+                                <h5> Add sauces? for 0.5$ only </h5>
+                                <div class="sauces row">
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Hot" class="radio" value="0.5" name="fooby[1][]" />Hot
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mild" class="radio" value="0.5" name="fooby[3][]" />Mild
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="BBQ" class="radio" value="0.5" name="fooby[4][]" />BBQ
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mango Habanero" class="radio" value="0.5" name="fooby[5][]" />Mango Habanero
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mango Pineapple" class="radio" value="0.5" name="fooby[6][]" />Mango Pineapple
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Garlic Parmesan" class="radio" value="0.5" name="fooby[7][]" />Garlic Parmesan
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Spicy Mango" class="radio" value="0.5" name="fooby[8][]" />Spicy Mango
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Honey BBQ" class="radio" value="0.5" name="fooby[9][]" />Honey BBQ
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <h4>Quantity</h4> <input id="qty" min="1" value="1" style="text-align:center;" type="number" />
+                            <h5 id="totalpice">Total Price</h5>
+                            <h5 id="topping"></h5>
+
+                        </div>
+                        <a id="sbmt" class="btn btn-white btn-outline-white mt-3 ftco-animate">ADD TO CART</a>
+
+
+                    </div>
+                    <div class="col-md-12 d-flex align-items-center">
+
+                        <div class="tab-content ftco-animate" id="v-pills-tabContent">
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<div id="modal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div style="overflow-x:auto;" class="ftco-animated">
+                    <table id="mytable" class="table table-striped table-dark ft ftco-animate justify-content-center">
+
+                        <thead class="ftco-animated">
+                            <tr class="ftco-animated">
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+
+
+
+
+                        <tbody class="ftco-animate"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="location.href='@Url.Action("add_to_cart")'" class="btn btn-primary"> Cart Details  </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        $(".checkboxes").hide();
+        var sauces = "";
+        var count = 0;
+        
+        var id = $("#id").text();
+
+        //$("#qty").on("change", function () {
+
+        //    var qty = parseInt($("#qty").val());
+        //    var price = parseFloat($("#price").text());
+        //    $("#totalpice").text("Total Price : " + price.toFixed(2)  * qty + "$");
+
+        //});
+
+
+        $("#sbmt").on("click", function () {
+
+            debugger
+
+            var id = $("#id").text();
+            var qty = $("#qty").val();
+            var price = parseFloat($("#totalpice").text().match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+            var pieces = $("#pieces option:selected").text();
+
+            if (sauces != "") {
+                pieces += " Sauce(s) : " + sauces; 
+            }
+
+            //var desc = $("#desc").text();
+            var itemname = $("#name").text();
+            var img = $("#img").text();
+
+            if (pieces != "-- Select Pieces --") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/add_to_cart", //url to get list
+
+                    data: { price: price, qty: qty, id: id, name: itemname, image: img, desc: pieces, pieces: pieces },
+                    //dataType: "json",
+                    success: function (response) {
+                        //url = "";
+                        //location.replace("/Home/add_to_cart");
+
+                        $mymodal = $("#modal1");
+                        $mymodal.find("div.modal-body #mytable tbody").html(response);
+                        $mymodal.modal("show");
+
+                    }
+                });
+            }else {
+                alertify.message("please Select Pieces");
+            }
+
+        });
+
+
+        $("#pieces").on("change", function () {
+
+            if (id == 1) {
+                count = 3;
+                var piecetext = $("#pieces option:selected").text(); 
+    
+                //id = 1
+                if (piecetext == "10 Pieces") {
+                    count = 1;
+                }
+                if (piecetext == "20 Pieces") {
+                    count = 2;
+                }
+    
+                $(".checkboxes").show();
+            }
+
+            $("input[type=checkbox]:checked").each(function () {
+                $(this).prop("checked", false);
+            });
+
+            var price = $("#pieces").val();
+            
+            sauces = "";
+            $("#topping").text("");
+
+            $("#qty").val(1)
+            $("#totalpice").text("Total Price : " + price)
+            //var piece = $("#pieces").val();
+            $("#price").text(price);
+            debugger;
+
+        });
+
+
+        $(document).on("change","input:checkbox", function() {  
+            
+            debugger;
+            var selectedsauces = new Array();
+            var selectedprice = new Array();
+            var price = parseFloat($("#price").text().match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+
+            var $box = $(this);
+
+            
+           
+
+
+            $("input[type=checkbox]:checked").each(function () {
+                selectedsauces.push($(this).data("name"));
+                price += parseFloat( (this.value));
+                    
+            });
+
+            if (selectedsauces.length < count + 1) {
+                sauces =  selectedsauces.join(",").toString();
+                    
+                $("#topping").text(sauces);
+                $("#totalpice").text("Single Pizza Price With sauces : " + price.toFixed(2) + "$");
+
+            } else {
+                alertify.message("you can select only "+ count +" sauces(s)");
+
+                $(this).prop("checked", false);
+            }    
+
+        });
+
+
+    });
+
+</script>

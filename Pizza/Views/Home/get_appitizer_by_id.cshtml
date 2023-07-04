@@ -1,0 +1,192 @@
+﻿@model Pizza.ViewModels.addtocartViewModel
+@{
+    ViewBag.Title = "Add To Cart";
+}
+
+
+
+<div class="justify-content-center ftco-animate mt-5 heading-section">
+    <h2 style="text-align:center;" id="name"> @Model.appitizer.AppetizersName </h2>
+    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+</div>
+
+<p style="visibility:hidden;" id="pieces">@Model.appitizer.Pieces</p>
+<section class="ftco-menu">
+    <div class="container-fluid">
+        <div class="row d-md-flex">
+            <div class="col-lg-4 ftco-animate img f-menu-img mb-5 mb-md-0" style="padding:25px;">
+                <img src="~/Content/images/@Model.appitizer.AppetizersImage" />
+            </div>
+            <div class="col-lg-8 ftco-animate p-md-5 fadeInUp ftco-animated">
+                <div class="row">
+                    <div class="col-md-12 nav-link-wrap mb-5">
+                        <div class=" ftco-animate"  aria-orientation="vertical">
+                        
+                            <h1> Description </h1>
+
+                            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+                           <p><b>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia. </b></p> 
+                            <h4>Pieces : @Model.appitizer.Pieces  </h4> 
+
+
+                           @if (Model.appitizersizes != null)
+                           {
+                            <h4>Sizes :  
+                                <select id="appitersizes" name="appitersizes" class="dropdown">
+                                    <option value="1">-- Select Size --</option>
+                                
+                                    @foreach (var item in Model.appitizersizes)
+                                    {
+                                        <option value="@item.value">@item.text</option>
+                                    }
+                               
+                                 </select>
+                           </h4>
+                           }
+                            @*
+                                 <div class="row dd">
+                                     <h4>&nbsp; Pieces : &nbsp;</h4> <h4 id="piece">
+                                         @Html.DropDownList("pieces", "-- Select Pieces --")
+                                     </h4>
+                                 </div>
+                            *@
+
+
+                          <div class="row">
+                             <h4>&nbsp; Price : &nbsp;</h4> <h4 id="price">@Model.appitizer.Price</h4> <h4>$</h4>
+                            </div>
+                            <h4 >Quantity</h4> <input id="qty" min="1" value="1" style="text-align:center;" type="number" />
+                            <h5 id="totalpice">Total Price</h5>
+                        </div>
+                        <a id="sbmt" class="btn btn-white btn-outline-white mt-3 ftco-animate">ADD TO CART</a>
+                        
+                      
+   
+                     </div>
+                    <div class="col-md-12 d-flex align-items-center">
+
+                        <div class="tab-content ftco-animate" id="v-pills-tabContent">
+
+                          <p style="visibility:hidden;" id="img">@Model.appitizer.AppetizersImage</p>
+                          <p style="visibility:hidden;" id="id">@Model.appitizer.AppetizersID</p>
+       
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="modal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">            
+            <div class="modal-body">
+                <div style="overflow-x:auto;" class="ftco-animated">
+                    <table id="mytable" class="table table-striped table-dark ft ftco-animate justify-content-center">
+
+                        <thead class="ftco-animated">
+                            <tr class="ftco-animated">
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+
+
+
+
+                        <tbody class="ftco-animate"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="location.href='@Url.Action("add_to_cart")'" class="btn btn-primary"> Cart Details  </button> 
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+        // var id = $("#id").text();
+    });
+
+    $("#qty").on("change", function () {
+
+            var qty = parseInt($("#qty").val());
+          
+            
+            var price = parseFloat($("#price").text());
+           
+            $("#totalpice").text("Total Price : " + price.toFixed(2) * qty + "$");
+          
+        });
+    $("#sbmt").on("click", function () {
+        debugger;
+
+            var id = $("#id").text();
+            
+            var qty = $("#qty").val();
+            var price = $("#price").text();
+            var pieces = "Peices : " + $("#pieces").text();
+            var itemname = $("#name").text();
+            var img = $("#img").text();
+            var size = "";
+
+            if (id == 1 || id == 16) {
+
+                size += ", Size : " + $("#appitersizes option:selected").text();
+            }
+
+
+            if ($("#appitersizes option:selected").text() == "-- Select Size --") {
+                alertify.message("select size");
+            } else {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/add_to_cart", //url to get list
+
+                    data: { price: price, qty: qty, id: id, name: itemname, image: img, desc: pieces, topping: "", sizes: size },
+                    success: function (response) {
+
+                        $mymodal = $("#modal1");
+                        $mymodal.find("div.modal-body #mytable tbody").html(response);
+                        $mymodal.modal("show");
+                        //console.log(data);
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    },
+                    complete: function () {
+                        // Handle the complete event
+                        // $("#modal").modal("show");
+                    }
+                });
+            }
+
+    });
+
+    $("#appitersizes").change(function () {
+
+
+        $("#totalpice").text("");
+        $("#qty").val(1);
+        var sizes = $("#appitersizes option:selected").val();
+
+        $("#price").text(sizes);
+    });
+
+</script>
+
+
+
+
+

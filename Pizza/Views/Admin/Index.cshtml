@@ -1,0 +1,58 @@
+﻿@model Pizza.Models.Login
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width-device-width" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <h4><strong>MamaMaria Inventory Portal</strong></h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="row offset-md-4" style="margin-top:5%">
+                <div class="form-group col-lg-7">
+                    <label><strong>Username</strong></label>
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row offset-md-4">
+                <div class="form-group col-lg-7">
+                    <label><strong>Password</strong></label>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row offset-md-4">
+                <div class="form-group col-lg-7">
+                    <input type="submit" value="Login" class="btn btn-success btn-block" />
+                </div>
+            </div>
+            <hr />
+        </div>
+    }
+
+
+</body>
+</html>

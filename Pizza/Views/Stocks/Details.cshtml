@@ -1,0 +1,67 @@
+﻿@model Pizza.Stock
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityRecieved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityRecieved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalPriceOfItems)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalPriceOfItems)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.QuantityRemainig)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.QuantityRemainig)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.perPieceItemPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.perPieceItemPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Item.ItemName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StockID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

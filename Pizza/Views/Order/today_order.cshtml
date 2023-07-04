@@ -1,0 +1,131 @@
+﻿@model  List<Pizza.Models.CustomerDetails>
+@{
+    ViewBag.Title = "order";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<div style="overflow-x:auto;" class="ftco-animated">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Order Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Ordered On</th>
+                <th scope="col">Number</th>
+                <th scope="col">Total Price</th>
+                <th scope="col">Confirm</th>
+                <th scope="col">Remarks</th>
+                <th scope="col">Cancel</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr class="rowcart">
+                <th class="align-middle" scope="row"><button onclick="window.location = '@Url.Action("get_order_by_id", new { ordercode = @item.ordecode })'" class="btn btn-outline-dark">@item.ordecode</button></th>
+                <td class="align-middle name">@item.FristName</td>
+                <td class="align-middle">@item.Datetime</td>
+                <td class="align-middle">@item.Contact</td>
+                <td class="align-middle price">@item.toalprice</td>
+                <td class="align-middle"><div class="col-auto my-1"><div class="custom-control custom-checkbox mr-sm-2"><input type="checkbox" class="custom-control-input" id="@item.ID"><label class="custom-control-label" for="@item.ID"></label></div></div></td>
+                <td class="align-middle"><p class="justforpointer" data-toggle="popover" data-placement="left" title="Remarks" data-content="@item.remarks" style="display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 200px;">@item.remarks</p></td>
+                <th class="align-middle"><button data-id="@item.ordecode" class="btn btn-outline-danger btnCancel">X</button></th>
+
+                @*<td class="align-middle">
+            <div class="input-group mb-3 ">
+                <input type="text" class="form-control align-middle" placeholder="Remarks" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append align-middle">
+                    <button class="btn btn-outline-success" type="button">OK</button>
+                </div>
+            </div>
+        </td>*@
+
+            </tr>
+            }
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="3"> </td>
+                <td colspan="2" id="totalprice" style="color: ButtonShadow; text-align:center;"> <b> Total Price : </b> </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+    .popover {
+        padding: 15px;
+        color: ButtonShadow;
+        opacity: 1 !important;
+        background-color: #F2F2F2;
+    }
+
+    .justforpointer {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+
+    $(document).ready(function () {
+        totalPrice();
+        $('table tbody tr td p').popover();//.popover();
+    });
+
+
+    //$("#checkAll").change(function () {
+    //    $("input:checkbox").prop('checked', $(this).prop("checked"));
+    //});
+    //launch it.
+    $(".btnCancel").click(function () {
+        debugger;
+        var code = $(this).data("id");
+        var tr = $(this).closest('tr');
+
+        alertify.confirm('Wait...', "Are You Sure You Want To Cancel This Order ? ...",
+            function () {
+
+
+                $.post("/Order/DeleteOrder", {
+                    code: code
+                }, function (response) {
+                    alertify.success(response.Result);
+                    tr.remove();
+                    totalPrice();
+                });
+            },
+            function () {
+                alertify.error('Cancel');
+            });
+
+    });
+
+    $("input:checkbox").click(function () {
+        var tr = $(this).closest('tr');
+        $.post("/Order/UpdateConfirm/" + this.id, function (response) {
+            alertify.success(response.Result);
+            tr.remove();
+            totalPrice();
+        });
+    });
+
+
+    function totalPrice() {
+        debugger;
+        var total = 0
+        //        var rowCount = $('#table > tbody > tr').length;
+        //        alert(rowCount);
+        $("tr.rowcart").each(function () {
+            var price = parseFloat($(this).find("td.price").text());
+
+            total += price;
+        });
+        $("#totalprice").text("Total Price : " + total.toFixed(2) + "$");
+
+    }
+</script>

@@ -1,0 +1,380 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Pizza_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="itemDescription" Type="nvarchar" MaxLength="500" />
+          <Property Name="itemTypeID" Type="int" Nullable="false" />
+          <Property Name="createdOn" Type="datetime" Nullable="false" />
+          <Property Name="MeasuringUnit" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="itemTypeID" />
+          </Key>
+          <Property Name="itemTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="itemTypeName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="StockID" />
+          </Key>
+          <Property Name="StockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="QuantityRecieved" Type="int" />
+          <Property Name="TotalPriceOfItems" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="QuantityRemainig" Type="nvarchar" MaxLength="50" />
+          <Property Name="createdOn" Type="datetime" />
+          <Property Name="perPieceItemPrice" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="StockHistory">
+          <Key>
+            <PropertyRef Name="stockHistoryID" />
+          </Key>
+          <Property Name="stockHistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockID" Type="int" />
+          <Property Name="quantityConsumed" Type="int" />
+          <Property Name="comments" Type="nvarchar" MaxLength="255" />
+          <Property Name="createdOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserPassword" Type="nvarchar" MaxLength="30" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Item_ItemType">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="itemTypeID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="itemTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockHistory_Stock">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="0..1" />
+          <End Role="StockHistory" Type="Self.StockHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StockID" />
+            </Principal>
+            <Dependent Role="StockHistory">
+              <PropertyRef Name="stockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Pizza_DBModelStoreContainer">
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemType" EntityType="Self.ItemType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockHistory" EntityType="Self.StockHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Item_ItemType" Association="Self.FK_Item_ItemType">
+            <End Role="ItemType" EntitySet="ItemType" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_UserTable" Association="Self.FK_Item_UserTable">
+            <End Role="UserTable" EntitySet="UserTable" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Item" Association="Self.FK_Stock_Item">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="Stock" EntitySet="Stock" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockHistory_Stock" Association="Self.FK_StockHistory_Stock">
+            <End Role="Stock" EntitySet="Stock" />
+            <End Role="StockHistory" EntitySet="StockHistory" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Pizza_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="itemDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="itemTypeID" Type="Int32" Nullable="false" />
+          <Property Name="createdOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MeasuringUnit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ItemType" Relationship="Self.FK_Item_ItemType" FromRole="Item" ToRole="ItemType" />
+          <NavigationProperty Name="UserTable" Relationship="Self.FK_Item_UserTable" FromRole="Item" ToRole="UserTable" />
+          <NavigationProperty Name="Stocks" Relationship="Self.FK_Stock_Item" FromRole="Item" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="itemTypeID" />
+          </Key>
+          <Property Name="itemTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="itemTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ItemType" FromRole="ItemType" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="StockID" />
+          </Key>
+          <Property Name="StockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="QuantityRecieved" Type="Int32" />
+          <Property Name="TotalPriceOfItems" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="QuantityRemainig" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="createdOn" Type="DateTime" Precision="3" />
+          <Property Name="perPieceItemPrice" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_Stock_Item" FromRole="Stock" ToRole="Item" />
+          <NavigationProperty Name="StockHistories" Relationship="Self.FK_StockHistory_Stock" FromRole="Stock" ToRole="StockHistory" />
+        </EntityType>
+        <EntityType Name="StockHistory">
+          <Key>
+            <PropertyRef Name="stockHistoryID" />
+          </Key>
+          <Property Name="stockHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockID" Type="Int32" />
+          <Property Name="quantityConsumed" Type="Int32" />
+          <Property Name="comments" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="createdOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Stock" Relationship="Self.FK_StockHistory_Stock" FromRole="StockHistory" ToRole="Stock" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserPassword" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_UserTable" FromRole="UserTable" ToRole="Item" />
+        </EntityType>
+        <Association Name="FK_Item_ItemType">
+          <End Role="ItemType" Type="Self.ItemType" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemType">
+              <PropertyRef Name="itemTypeID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="itemTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_UserTable">
+          <End Role="UserTable" Type="Self.UserTable" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTable">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stock_Item">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="Stock" Type="Self.Stock" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="Stock">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockHistory_Stock">
+          <End Role="Stock" Type="Self.Stock" Multiplicity="0..1" />
+          <End Role="StockHistory" Type="Self.StockHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stock">
+              <PropertyRef Name="StockID" />
+            </Principal>
+            <Dependent Role="StockHistory">
+              <PropertyRef Name="stockID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Pizza_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemType" />
+          <EntitySet Name="Stocks" EntityType="Self.Stock" />
+          <EntitySet Name="StockHistories" EntityType="Self.StockHistory" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="UserTables" EntityType="Self.UserTable" />
+          <AssociationSet Name="FK_Item_ItemType" Association="Self.FK_Item_ItemType">
+            <End Role="ItemType" EntitySet="ItemTypes" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_UserTable" Association="Self.FK_Item_UserTable">
+            <End Role="UserTable" EntitySet="UserTables" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stock_Item" Association="Self.FK_Stock_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="Stock" EntitySet="Stocks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockHistory_Stock" Association="Self.FK_StockHistory_Stock">
+            <End Role="Stock" EntitySet="Stocks" />
+            <End Role="StockHistory" EntitySet="StockHistories" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Pizza_DBModelStoreContainer" CdmEntityContainer="Pizza_DBEntities">
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="Pizza_DBModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="itemDescription" ColumnName="itemDescription" />
+                <ScalarProperty Name="itemTypeID" ColumnName="itemTypeID" />
+                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
+                <ScalarProperty Name="MeasuringUnit" ColumnName="MeasuringUnit" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemTypes">
+            <EntityTypeMapping TypeName="Pizza_DBModel.ItemType">
+              <MappingFragment StoreEntitySet="ItemType">
+                <ScalarProperty Name="itemTypeID" ColumnName="itemTypeID" />
+                <ScalarProperty Name="itemTypeName" ColumnName="itemTypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stocks">
+            <EntityTypeMapping TypeName="Pizza_DBModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="StockID" ColumnName="StockID" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="QuantityRecieved" ColumnName="QuantityRecieved" />
+                <ScalarProperty Name="TotalPriceOfItems" ColumnName="TotalPriceOfItems" />
+                <ScalarProperty Name="QuantityRemainig" ColumnName="QuantityRemainig" />
+                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
+                <ScalarProperty Name="perPieceItemPrice" ColumnName="perPieceItemPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockHistories">
+            <EntityTypeMapping TypeName="Pizza_DBModel.StockHistory">
+              <MappingFragment StoreEntitySet="StockHistory">
+                <ScalarProperty Name="stockHistoryID" ColumnName="stockHistoryID" />
+                <ScalarProperty Name="stockID" ColumnName="stockID" />
+                <ScalarProperty Name="quantityConsumed" ColumnName="quantityConsumed" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="createdOn" ColumnName="createdOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Pizza_DBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTables">
+            <EntityTypeMapping TypeName="Pizza_DBModel.UserTable">
+              <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,206 @@
+
+@{
+    ViewBag.Title = "Menu";
+}
+<h2>Menu</h2><section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3">
+            <div class="col-md-7 heading-section ftco-animate text-center">
+                <h2 class="mb-4">Our Menu</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            </div>
+        </div>
+    </div>
+
+                 <div class="container">
+                     <div class="row">
+                         <div class="col-sm">
+                             <h3>Veggie - 4 Toppings</h3>
+                             <label style="color:goldenrod">S: $7.99 | M: $9.99</label><br />
+                             <label style="color:goldenrod">L: $10.99 | XL: $13.99</label>
+                             <h5>Veggie - 8 Toppings</h5>
+                             <label style="color:goldenrod">S: $9.99 | M: $11.99</label><br />
+                             <label style="color:goldenrod">L: $13.99 | XL: $15.99</label>
+                         </div>
+                         
+                         <div class="col-sm">
+                             <h3>Mama Supreme #1</h3>
+                             <label>Pepperoni, Sausage Green Pepper, Onion Black Olive, Mushroom</label><br />
+                             <label style="color:goldenrod">S: $9.99 | M: $11.99</label><br />
+                             <label style="color:goldenrod">L: $13.99 | XL: $15.99</label>
+
+                         </div>
+                         
+                         <div class="col-sm">
+                             <h3>Mama Supreme #2</h3>
+                             <label>Chicken, Gyros Green Pepper, Onion Black Olive</label><br />
+                             <label style="color:goldenrod">S: $9.99 | M: $11.99</label><br />
+                             <label style="color:goldenrod">L: $13.99 | XL: $16.99</label>                         
+                         </div>
+
+                         <div class="col-sm">
+                             <h3>Mama Supreme #3</h3>
+                             <label>All Meat Supreme</label><br />
+                             <label style="color:goldenrod">S: $10.99 | M: $12.99</label><br />
+                             <label style="color:goldenrod">L: $14.99 | XL: $17.99</label>
+                         </div>    
+                     </div>
+
+                     <br>
+                     
+                     <div class="row">
+                         <div class="col-sm">
+                             <h3>Mama Supreme #4</h3>
+                             <label>Bihari Kabob, Shami Kabob Chicken Bihari, Green Pepper, Onion</label><br />
+                             <label style="color:goldenrod">S: $10.99 | M: $11.99</label><br />
+                             <label style="color:goldenrod">L: $13.99 | XL: $16.99</label>                         </div>
+
+                         <div class="col-sm">
+                             <h3>Mama Special #1</h3>
+                             <label>Chicken, Pineapple Green Pepper, Black Olive</label><br />
+                             <label style="color:goldenrod">S: $8.99 | M: $11.99</label><br />
+                             <label style="color:goldenrod">L: $12.99 | XL: $15.99</label>
+                         </div>
+
+                         <div class="col-sm">
+                             <h3>Mama Special #2</h3>
+                             <label>Chicken, Pineapple, Jalapeno </label><br />
+                             <label style="color:goldenrod">S: $8.99 | M: $11.99</label><br />
+                             <label style="color:goldenrod">L: $12.99 | XL: $14.99</label>                         
+                         </div>
+
+                         <div class="col-sm">
+                             <h3>Mama Special #3</h3>
+                             <label>HAWAIIAN, Turkey Ham, Pineapple </label><br />
+                             <label style="color:goldenrod">S: $7.99 | M: $8.99</label><br />
+                             <label style="color:goldenrod">L: $9.99 | XL: $11.99</label>   
+                         </div>
+                     </div>
+
+
+                 </div>
+
+
+
+            
+            
+            
+
+            
+            
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-3 mt-5 pt-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <h2 class="mb-4">Our Menu Pricing</h2>
+                <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+                <p class="mt-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-1.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Italian Pizza</span></h3>
+                            <span class="price">$20.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-2.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Hawaiian Pizza</span></h3>
+                            <span class="price">$29.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-3.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Greek Pizza</span></h3>
+                            <span class="price">$20.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-4.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Bacon Crispy Thins</span></h3>
+                            <span class="price">$20.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-5.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Hawaiian Special</span></h3>
+                            <span class="price">$49.91</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-6.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Ultimate Overload</span></h3>
+                            <span class="price">$20.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-7.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Bacon Pizza</span></h3>
+                            <span class="price">$20.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pricing-entry d-flex ftco-animate">
+                    <div class="img" style="background-image: url(images/pizza-8.jpg);"></div>
+                    <div class="desc pl-3">
+                        <div class="d-flex text align-items-center">
+                            <h3><span>Ham &amp; Pineapple</span></h3>
+                            <span class="price">$20.00</span>
+                        </div>
+                        <div class="d-block">
+                            <p>A small river named Duden flows by their place and supplies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,154 @@
+﻿
+@model Pizza.ViewModels.MenuViewModel
+
+<section class="ftco-section">
+  
+    <div class="row no-gutters justify-content-center mb-1 pb-2 mt-2 pt-2">
+        <div class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
+            <h2 class="mb-4">Our Menu</h2>
+            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+        </div>
+    </div>
+
+    <hr />
+    <hr />
+    1
+    <div class="container-wrap">
+        <div class="row no-gutters d-flex">
+            @{  int count = 0; }
+            @foreach (var item in Model.getAllPizza)
+            {
+                if (count < 2 || (count > 3 && count  < 6))
+                {
+
+                    <div class="col-lg-6 d-flex ftco-animate">
+                        <div class="services-wrap d-flex">
+                            <a href="@Url.Action("get_pizza_by_id", new { id = item.PizzaID })" class="img" style="background-image: url(/Content/images/@item.PizzaImage);"></a>
+                            <div class="text p-4">
+                                <h3>@item.PizzaName</h3>
+                                <p>@item.PizzaIngredients</p>
+                                <a href="@Url.Action("get_pizza_by_id", new { id = item.PizzaID })" class="ml-2 btn btn-white btn-outline-white">Order</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-lg-6 d-flex ftco-animate">
+                        <div class="services-wrap d-flex">
+                            <a href="@Url.Action("get_pizza_by_id", new { id = item.PizzaID })" class="img order-lg-last" style="background-image: url(/Content/images/@item.PizzaImage);"></a>
+                            <div class="text p-4">
+                                <h3>@item.PizzaName</h3>
+                                <p>@item.PizzaIngredients</p>
+                                <a href="@Url.Action("get_pizza_by_id", new { id = item.PizzaID })" class="ml-2 btn btn-white btn-outline-white">Order</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                
+                count++;
+
+            }
+        </div>
+    </div>
+    @*Deals Sections End*@
+
+</section>
+
+<section class="ftco-menu">
+
+   
+    <div class="container-fluid">
+        <div class="row d-md-flex"> 
+            <div class="col-lg-12 ftco-animate p-md-5 fadeInUp ftco-animated">
+                <div class="row">
+                    <div class="col-md-12 d-flex ftco-animate nav-link-wrap mb-5 justify-content-center">
+                        <div class="nav ftco-animate nav-pills fadeInUp ftco-animated" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">
+                            Appetizers
+                            </a>
+
+                            <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">
+                                Chicken Delights
+                            </a>
+
+                            <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">
+                                Burgers & Sandwiches
+                            </a>
+
+                        </div>
+                    
+                   
+                    </div>
+
+                  
+                    <div class="col-md-12 d-flex ftco-animate align-items-center">
+
+                        <div class="tab-content ftco-animate fadeInUp ftco-animated" id="v-pills-tabContent">
+
+                            <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
+                                <div class="row">
+                                    @foreach (var item in Model.getAllAppetizers)
+                                    {
+                                        <div class="col-md-3 d-flex ftco-animate text-center">
+                                            <div class="menu-wrap">
+                                                <a href="@Url.Action("get_appitizer_by_id", new { id = item.AppetizersID })" class="menu-img img mb-3" style="background-image: url(/Content/images/@item.AppetizersImage);"></a>
+                                                <div class="text">
+                                                    <h3><a href="@Url.Action("get_appitizer_by_id", new { id = item.AppetizersID })">@item.AppetizersName</a></h3>
+                                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+                                    
+                                                    <p><a href="@Url.Action("get_appitizer_by_id", new { id = item.AppetizersID })" class="btn btn-white btn-outline-white">ORDER</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
+                                <div class="row">
+                                    @foreach (var item in Model.getAllChickenDelight)
+                                    {
+                                    
+                                        <div class="col-md-3 d-flex ftco-animate text-center">
+                                            <div class="menu-wrap">
+                                                <a href="@Url.Action("get_chickendelight_by_id", new { id = item.ChickenID })" class="menu-img img mb-3" style="background-image: url(/Content/images/@item.ChickenImage);"></a>
+                                                <div class="text">
+                                                    <h3><a href="@Url.Action("get_chickendelight_by_id", new { id = item.ChickenID })">@item.ChickenName</a></h3>
+                                                    <p >@item.CheckenDesc</p>
+                                                    
+                                                    <p><a href="@Url.Action("get_chickendelight_by_id", new { id = item.ChickenID })" class="btn btn-white btn-outline-white">ORDER</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            
+
+                            <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
+                                <div class="row">
+                                    @foreach (var item in Model.getAllBurgerAndSendwithces)
+                                    {
+                                    
+                                        <div class="col-md-3 d-flex ftco-animate text-center">
+                                            <div class="menu-wrap">
+                                                <a href="@Url.Action("get_others_by_id", new { id = item.ID })" class="menu-img img mb-3" style="background-image: url(/Content/images/@item.BSImage);"></a>
+                                                <div class="text">
+                                                    <h3><a href="@Url.Action("get_others_by_id", new { id = item.ID })">@item.BSName</a></h3>
+                                                    <p style="max-height:80px; overflow:hidden; text-overflow:ellipsis;">@item.BSDesc</p>
+                                                    <p><a href="@Url.Action("get_others_by_id", new { id = item.ID })" class="btn btn-white btn-outline-white">ORDER</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

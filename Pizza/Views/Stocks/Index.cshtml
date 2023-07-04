@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Pizza.Stock>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityRecieved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalPriceOfItems)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.QuantityRemainig)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.perPieceItemPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Item.ItemName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuantityRecieved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPriceOfItems)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.QuantityRemainig)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.perPieceItemPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Item.ItemName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StockID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StockID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StockID })
+        </td>
+    </tr>
+}
+
+</table>

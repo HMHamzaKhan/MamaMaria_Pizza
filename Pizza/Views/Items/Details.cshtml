@@ -1,0 +1,67 @@
+﻿@model Pizza.Item
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itemDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itemDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MeasuringUnit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MeasuringUnit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemType.itemTypeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemType.itemTypeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserTable.UserPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserTable.UserPassword)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

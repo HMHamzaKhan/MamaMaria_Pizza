@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>INVENTORY</title>
+    <!-- Bootstrap core CSS -->
+    <!-- Custom styles for this template -->
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <link href="~/Content/simple-sidebar.css" rel="stylesheet" />
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    @*alerty css js*@
+    <script src="~/Content/alertify/alertify.js"></script>
+    <script src="~/Content/alertify/alertify.min.js"></script>
+    <link href="~/Content/alertify/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertify/css/themes/default.min.css" rel="stylesheet" />
+
+    <style>
+        div .menuicon {
+            width: 25px;
+            height: 3px;
+            background-color: ButtonShadow;
+            margin: 2px 0;
+        }
+
+        .active {
+            background-color: #7f93d2 !important;
+        }
+    </style>
+
+
+    @RenderSection("Styles", false)
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading"><strong>Inventory Portal</strong> </div>
+            <div class="list-group list-group-flush">
+
+                @*<a href="~/items/index" class="list-group-item list-group-item-action bg-light">item</a>
+                    <a href="~/itemtypes/index" class="list-group-item list-group-item-action bg-light">item type</a>
+                    <a href="~/stocks/index" class="list-group-item list-group-item-action bg-light">stock</a>
+                    <a href="~/stockhistories/index" class="list-group-item list-group-item-action bg-light">stock history</a>*@
+
+                <a href="@Url.Action("today_order","Order")" class="active  list-group-item list-group-item-action ">Today's Order</a>
+                <a href="@Url.Action("ConfirmOrders","Order")" class=" list-group-item list-group-item-action ">Confirmed Orders</a>
+                <a href="@Url.Action("order","Order")" class=" list-group-item list-group-item-action">Order History</a>
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+                <button class="btn btn-light" id="menu-toggle">
+                    <div class="menuicon"></div>
+                    <div class="menuicon"></div>
+                    <div class="menuicon"></div>
+                </button>
+
+
+                <p style="text-align:center; width:100%; font-size: 25px;"><b> @Session["name"] - Branch </b>  </p>  <p id="branch"></p>
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+
+                        <li>
+                            <button class="btn" onclick="window.location = '@Url.Action("Logout","Admin")'">
+                                <i class="fa fa-sign-out" style="font-size:35px; color:red;"></i>
+                            </button>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    @*<script src="~/Content/vendor/jquery/jquery.min.js"></script>
+        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        var currentdate = new Date();
+        var today = currentdate.getDate() + "/" + currentdate.getMonth() + "/" + currentdate.getFullYear();
+        var todaycss = "<span style='font-size: 15px;'>" + today + "</span>";
+        $("#branch").append(todaycss);
+    </script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('a.active').removeClass('active');
+            $('a[href="' + location.pathname + '"]').closest('a').addClass('active');
+
+        })
+    </script> 
+</body>
+</html>

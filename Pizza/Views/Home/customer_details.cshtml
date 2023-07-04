@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "customer_details";
+}
+
+@{
+    List<SelectListItem> branches = new List<SelectListItem>();
+
+    branches.Add(new SelectListItem
+         {
+             Text = "Branch 1 : Mama Maria Des Plaines",
+             Value = "1"
+         });
+    branches.Add(new SelectListItem
+         {
+             Text = "Branch 2 : Mama Maria Schaumburg",
+             Value = "2",
+             
+         });
+         
+}
+
+
+
+<div class="justify-content-center ftco-animate mt-5 heading-section">
+    <h1 style="text-align:center;" id="name">Enter Your Details </h1>
+    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+</div>
+<div class="row ftco-animate justify-content-center no-gutters">
+    <div class="col-md-6 ftco-animate mt-1">
+        <center>  @Html.DropDownList("crust", branches, "-- Select Branch --")</center>
+
+
+        <form action="@Url.Action("customer_details")" id="searchForm" method="post" class="contact-form mt-1">
+            <div class="row no-gutters mt-1">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="name" placeholder="Full Name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="address" placeholder="Full Address">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row no-gutters mt-1">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="number" placeholder="Phone Number">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" name="email" placeholder="Email">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mt-1">
+                <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Remarks"></textarea>
+            </div>
+            <div class="form-group ftco-animate">
+                <center><b><input type="submit" value="Order Now" class="btn btn-primary py-3 px-5" style="width:200px;"></b></center>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+
+
+<script type='text/javascript'>
+
+
+    $(document).ready(function () {
+
+        //  Attach a submit handler to the form
+
+    });
+    $("#searchForm").submit(function (event) {
+
+            //alert("hello")
+            // Stop form from submitting normally
+            event.preventDefault();
+            debugger;
+
+            // Get some values from elements on the page:
+            var $form  = $(this),
+              name     = $form.find("input[name='name']").val(),
+              address  = $form.find("input[name='address']").val(),
+              number   = $form.find("input[name='number']").val(),
+              email    = $form.find("input[name='email']").val(),
+              branchID = $("#crust option:selected").val(),
+              Remarks = $form.find("textarea").val();
+        
+
+            url = $form.attr("action");
+
+            if (branchID < 1) {
+
+                alertify.message("Please Select Branch");
+
+            } else {
+
+                if (name == "" || number == "" || email == "") {
+                    alertify.error("please Enter Complete and correct Details so we can track your order");
+                } else {
+
+                    // Send the data using post
+                    var posting = $.post(url, { branchID: parseInt(branchID), name: name, address: address, number: number, email: email, Remarks: Remarks });
+
+                    posting.success(function () {
+                        debugger;
+
+                        alertify.success(' Order Placed :) ');
+
+                        var delayInMilliseconds = 3000; //3 second
+
+                        setTimeout(function () {
+                            url = "";
+                            location.replace("/Home/Menu");
+                        }, delayInMilliseconds);
+
+                    });
+                    posting.fail(function (error) {
+
+                        alertify.error(error);
+
+                    });
+
+                }
+
+            }
+        });
+
+
+    @*$(document).ready(function () {
+
+
+        $('#btn').click(function () {
+            alert("clicked")
+            debugger;
+            var name = $('#name').val;
+
+            var receiver = $('#receiver').val;
+
+            var subject = $('#subject').val;
+
+            var message = $('#message').val;
+
+            var request = $.ajax({
+                url: "@Url.Action("SendEmail")",
+                method: "POST",
+                data: { receiver: receiver, name: name, subject: subject, message: message },
+            dataType: "html"
+        });
+
+        request.done(function (msg) {
+            alert(" Email Send ");
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Something Went Worng : ", textStatus);
+        });
+
+    });
+    });*@
+
+
+</script>

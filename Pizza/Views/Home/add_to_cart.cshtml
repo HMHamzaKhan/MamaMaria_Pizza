@@ -1,0 +1,219 @@
+﻿@{
+    ViewBag.Title = "Cart Details";
+}
+
+
+
+<div class="row no-gutters justify-content-center mb-5 pb-3 mt-2 pt-2">
+    <div class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
+        <h2 class="mb-4">Cart Details</h2>
+        <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+    </div>
+</div>
+
+<div style="overflow-x:auto;" class="ftco-animated">
+    <table id="table" class="table table-striped table-dark ft ftco-animate">
+        <thead>
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody class=" ftco-animate ">
+
+            @{
+                if (ViewBag.cartList != null)
+                {
+                    foreach (var item in ViewBag.cartList)
+                    {
+                        <tr id="rowcart" data-name="@item.ItemName" class="ftco-animate rowcart">
+                            <td class="align-middle"><img style="height:70px; width:70px;" src="~/Content/images/@item.ItemImage" /></td>
+                            <th class="align-middle" scope="row">@item.ItemName</th>
+                            <td class="align-middle description">@item.ItemDesc</td>
+                            <td class="align-middle"><input id="qty" class="cart-variant--quantity_input qty" min="1" value="@item.ItemQuantity" data-item-price="@item.ItemPrice" style="text-align:center; width:60px;" type="number" /></td>
+                            <td class="align-middle price" id="price">@item.ItemPrice</td>
+                            <td class="align-middle"> <button type="button" id="btn" style="height:40px; width:40px;" class="btn btn-danger">X</button> </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="ftco-animated">
+                        <td></td>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                }
+
+            }
+        </tbody>
+
+    </table>
+
+</div>
+    <h5 id="totalprice" class="ftco-animate">Sub Total Price : </h5>
+    <h6 id="tax"        class="ftco-animate">Area Tax ( 10% ) : </h6>
+    <h5 id="taxtotal"   class="ftco-animate">Total Price : </h5>
+
+
+<div class="row no-gutters justify-content-center mb-5 pb-3 mt-2 pt-2">
+    <div class="col-md-7 heading-section text-center ftco-animate ">
+        <button style="width:170px;" onclick="window.location.href = '@Url.Action("Menu","Home")' " class="btn btn-outline-success mt-3 ftco-animate mb-4 mr-3"><i class="fas fa-arrow-left"></i> Shopping More</button>
+        <a id="sbmt" style="width:170px;" onclick="addorder()" class="btn btn-white btn-outline-white mt-3 mr-3 ftco-animate mb-4">Check Out</a>
+        <button id="btnClearCart" style="width:170px;" class="btn btn-outline-danger mt-3 ftco-animate mb-4">Clear Cart</button>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+
+        totalPrice();
+
+        //delete row
+
+
+        // $(document).on('change', '.cart-variant--quantity_input', function () {
+        //     debugger;
+        //     var $tr = $(this).closest('tr');
+        //     var sum = sum + parseInt( $('#qty', $tr).val()) * parseFloat($('#price', $tr).text());
+        //     $("#totalprice").text("Total Price : " + sum);
+        // });
+
+    });
+
+    $("#btnClearCart").click(function (e) {
+
+        $("#btnClearCart").html("Clearing Cart");
+        
+        $.ajax({
+            type: "GET",
+            url: "/Home/cleartcart", //url to get data
+            success: function () {
+                setTimeout(function () {
+                    $("#table tbody").html("<tr class='ftco-animated'> <td></td> <th></th> <td></td> <td></td> <td></td> <td></td></tr>");
+                    $("#btnClearCart").html("Clear Cart");
+                    alertify.message("cart cleared");
+                    totalPrice();
+                }, 1500);
+            }
+        });
+    });
+
+        $('#table').on('click', '#btn', function () {
+            debugger;
+            $(this).closest('tr').remove();
+            var itemname = $(this).closest('tr').data("name");
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/delete_item_from_cart", //url to get list
+
+                data: { itemname: itemname },
+                //dataType: "json",
+                //contentType: 'application/json; charset=utf-8'
+                success: function (response) {
+                    //url = "";
+                    //  location.replace("/Home/add_to_cart");
+
+                    //  alert("item removed");
+                }
+            });
+
+            totalPrice();
+            alertify.error("cart updated");
+        });
+
+       $(".cart-variant--quantity_input").on('change', function () {
+            debugger;
+            var itemname = $(this).closest('tr').data("name");
+            var qty = $(this).closest('tr').find("input.qty").val();
+            var itemdesc = $(this).closest('tr').find("td.description").text();
+
+
+
+
+            $.ajax({
+                type: "GET",
+                url: "/Home/change_qty", //url to get list
+
+                data: { qty: qty, name: itemname, desc: itemdesc },
+                //              dataType: "json",
+                //                contentType: 'application/json; charset=utf-8'
+                success: function (response) {
+                    //url = "";
+                    //  location.replace("/Home/add_to_cart");
+
+                    alertify.success("item updated");
+                }
+            });
+
+            totalPrice();
+
+        });
+
+    function addorder() {
+        debugger;
+        var totaltext = $("#totalprice").text();
+        var total = parseFloat(totaltext.match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+
+        if (total == 0) {
+        
+            alertify.message("your cart is empty");
+            return;
+        }
+
+        $.ajax({
+            type: "GET",
+            url: "/Home/checkout", //url to get list
+
+            data: { totalprice: total },
+            //   dataType: "json",
+            success: function (response) {
+                url = "";
+                location.replace("/Home/customer_details");
+
+                //alert("checked out");
+            }
+        });
+
+    }
+
+    function totalPrice() {
+        debugger;
+        var total = 0
+        //        var rowCount = $('#table > tbody > tr').length;
+        //        alert(rowCount);
+        $("tr.rowcart").each(function () {
+            var qty = $(this).find("input.qty").val(),
+               price = $(this).find("td.price").text();
+
+            total += qty * price;
+        });
+        $("#totalprice").text("Total Price : " + total.toFixed(2) + "$");
+        taxcal();
+    }
+
+    function taxcal(){
+        
+        var totaltext = $("#totalprice").text();
+        var total = parseFloat(totaltext.match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+
+        var tax = total * 0.1;
+        var totaltax = total + tax;
+        $("#tax").text("Area Tax ( 10% ) : " + tax.toFixed(2) + "$");
+        $("#taxtotal").text("Total Price : " + totaltax.toFixed(2) + "$");
+
+    }
+
+
+</script>

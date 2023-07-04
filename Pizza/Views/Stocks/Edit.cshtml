@@ -1,0 +1,78 @@
+﻿@model Pizza.Stock
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Stock</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.StockID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemId, "ItemId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ItemId", String.Empty)
+                @Html.ValidationMessageFor(model => model.ItemId)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuantityRecieved, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.QuantityRecieved)
+                @Html.ValidationMessageFor(model => model.QuantityRecieved)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TotalPriceOfItems, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TotalPriceOfItems)
+                @Html.ValidationMessageFor(model => model.TotalPriceOfItems)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuantityRemainig, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.QuantityRemainig)
+                @Html.ValidationMessageFor(model => model.QuantityRemainig)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.createdOn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.createdOn)
+                @Html.ValidationMessageFor(model => model.createdOn)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.perPieceItemPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.perPieceItemPrice)
+                @Html.ValidationMessageFor(model => model.perPieceItemPrice)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

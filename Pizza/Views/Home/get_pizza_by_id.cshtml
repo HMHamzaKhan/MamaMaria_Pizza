@@ -1,0 +1,692 @@
+﻿@model Pizza.Models.GetAllPizza
+@{
+    ViewBag.Title = "Add To Cart";
+}
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+
+    listItems.Add(new SelectListItem
+         {
+             Text = "Thin Crust",
+             Value = "1"
+         });
+    listItems.Add(new SelectListItem
+         {
+             Text = "Hand Tossed",
+             Value = "2",
+
+         });
+    listItems.Add(new SelectListItem
+         {
+             Text = "Deep Dish",
+             Value = "3"
+//<a href="~/Views/Home/get_pizza_by_id.cshtml">~/Views/Home/get_pizza_by_id.cshtml</a>
+         });
+}
+
+<div class="justify-content-center ftco-animate mt-5  heading-section">
+    <h2 style="text-align:center;" id="name"> @Model.PizzaName </h2>
+    <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+</div>
+
+
+<section class="ftco-menu">
+    <div class="container-fluid">
+        <div class="row d-md-flex">
+            <div class="col-lg-4 ftco-animate img f-menu-img mb-5 mb-md-0 justify-content-center" style="padding:25px;">
+                <img style="height:200px; width:200px;" src="~/Content/images/@Model.PizzaImage" /> <p style="visibility:hidden;" id="img">@Model.PizzaImage</p><p style="visibility:hidden;" id="id"> @Model.PizzaID </p>
+            </div>
+            <div class="col-lg-8 ftco-animate p-md-5 fadeInUp ftco-animated">
+                <div class="row">
+                    <div class="col-md-12 nav-link-wrap mb-5">
+                        <div id="check" class=" ftco-animate">
+
+                            <h1> Description </h1>
+
+                            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+                            <p id="desc"><b>@Model.PizzaIngredients</b></p>
+                            <div class="crust row">
+                                &nbsp; &nbsp; @Html.DropDownList("crust", listItems, "-- Select Crust --")
+
+                            </div>
+                            </br>
+                            <div class="row">
+                                <h4 id="piece">
+                                    &nbsp; @Html.DropDownList("sizes", "-- Select Size --") 
+                                                             &nbsp; &nbsp;
+                                </h4>
+                                <h4 id="price">&nbsp; Single Pizza Price : &nbsp;0$</h4> 
+
+                            </div>
+                            <h4>Quantity</h4> <input id="qty" min="1" value="1" style="text-align:center;" type="number" />
+                            
+
+                            <div class="checkboxes ">
+                                <!--small-->
+                                <div class="smallcheckboxes row">
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Banana Pepper Small" class="radio" value="5.99" name="fooby[1][]" />Banana Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Black Olive Small" class="radio" value="5.99" name="fooby[3][]" />Black Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Cheese Small" class="radio" value="5.99" name="fooby[4][]" />Cheese
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Chicken Tikka Small" class="radio" value="7.99" name="fooby[5][]" />Chicken Tikka
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Olive Small" class="radio" value="5.99" name="fooby[6][]" />Green Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Pepper Small" class="radio" value="5.99" name="fooby[7][]" />Green Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Gyros Small" class="radio" value="7.99" name="fooby[8][]" />Gyros
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Jalapeno Small" class="radio" value="5.99" name="fooby[9][]" />Jalapeno
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mushroom Small" class="radio" value="5.99" name="fooby[10][]" />Mushroom
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Onion Small" class="radio" value="5.99" name="fooby[11][]" />Onion
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pepperoni Small" class="radio" value="6.99" name="fooby[12][]" />Pepperoni
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pineapple Small" class="radio" value="5.99" name="fooby[13][]" />Pineapple
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Sausage Small" class="radio" value="6.99" name="fooby[14][]" />Sausage
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Spinach Small" class="radio" value="5.99" name=" fooby[15][]" />Spinach
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Tomato Small" class="radio" value="5.99" name="fooby[16][]" />Tomato
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Turkey Ham Small" class="radio" value="6.99" name="fooby[17][]" />Turkey Ham
+                                    </div>
+
+                                </div>
+                                <!--small-->
+                                                  
+                                <!--medium-->
+                                <div class="mediumcheckboxes row">
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Banana Pepper Medium" class="radio" value="6.99" name="fooby[1][]" />Banana Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Black Olive Medium" class="radio" value="6.99" name="fooby[3][]" />Black Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Cheese Medium" class="radio" value="6.99" name="fooby[4][]" />Cheese
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Chicken Tikka Medium" class="radio" value="9.99" name="fooby[5][]" />Chicken Tikka
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Olive Medium" class="radio" value="6.99" name="fooby[6][]" />Green Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Pepper Medium" class="radio" value="6.99" name="fooby[7][]" />Green Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Gyros Medium" class="radio" value="9.99" name="fooby[8][]" />Gyros
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Jalapeno Medium" class="radio" value="6.99" name="fooby[9][]" />Jalapeno
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mushroom Medium" class="radio" value="6.99" name="fooby[10][]" />Mushroom
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Onion Medium" class="radio" value="6.99" name="fooby[11][]" />Onion
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pepperoni Medium" class="radio" value="8.99" name="fooby[12][]" />Pepperoni
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pineapple Medium" class="radio" value="6.99" name="fooby[13][]" />Pineapple
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Sausage Medium" class="radio" value="8.99" name="fooby[14][]" />Sausage
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Spinach Medium" class="radio" value="6.99" name=" fooby[15][]" />Spinach
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Tomato Medium" class="radio" value="6.99" name="fooby[16][]" />Tomato
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Turkey Ham Medium" class="radio" value="8.99" name="fooby[17][]" />Turkey Ham
+                                    </div>
+
+                                </div>
+                                <!--medium-->
+                                                      
+                                <!--large-->
+                                <div class="largecheckboxes row">
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Banana Pepper Large" class="radio" value="7.99" name="fooby[1][]" />Banana Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Bihari Kabob Large" class="radio" value="3.00" name="fooby[2][]" />Bihari
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Black Olive Large" class="radio" value="7.99" name="fooby[3][]" />Black Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Cheese Large" class="radio" value="7.99" name="fooby[4][]" />Cheese
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Chicken Tikka Large" class="radio" value="10.99" name="fooby[5][]" />Chicken Tikka
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Olive Large" class="radio" value="7.99" name="fooby[6][]" />Green Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Pepper Large" class="radio" value="7.99" name="fooby[7][]" />Green Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Gyros Large" class="radio" value="10.99" name="fooby[8][]" />Gyros
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Jalapeno Large" class="radio" value="7.99" name="fooby[9][]" />Jalapeno
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mushroom Large" class="radio" value="7.99" name="fooby[10][]" />Mushroom
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Onion Large" class="radio" value="7.99" name="fooby[11][]" />Onion
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pepperoni Large" class="radio" value="9.99" name="fooby[12][]" />Pepperoni
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pineapple Large" class="radio" value="7.99" name="fooby[13][]" />Pineapple
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Sausage Large" class="radio" value="9.99" name="fooby[14][]" />Sausage
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" class="radio" data-name="Spinach Large" value="7.99" name="fooby[15][]" />Spinach
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" class="radio" data-name="Tomato Large" value="7.99" name="fooby[16][]" />Tomato
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" class="radio" data-name="Turkey Ham Large" value="9.99" name="fooby[17][]" />Turkey Ham
+                                    </div>
+
+                                </div>
+                                <!--large-->
+
+                                <!--extra large-->
+                                <div class="extralargecheckboxes row">
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Banana Pepper Extra Large" class="radio" value="9.99" name="fooby[1][]" />Banana Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Bihari Kabob Extra Large" class="radio" value="4.00" name="fooby[2][]" />Bihari
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Black Olive Extra Large" class="radio" value="9.99" name="fooby[3][]" />Black Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Cheese Extra Large" class="radio" value="9.99" name="fooby[4][]" />Cheese
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Chicken Tikka Extra Large" class="radio" value="12.99" name="fooby[5][]" />Chicken Tikka
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Olive Extra Large" class="radio" value="9.99" name="fooby[6][]" />Green Olive
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Green Pepper Extra Large" class="radio" value="9.99" name="fooby[7][]" />Green Pepper
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Gyros Extra Large" class="radio" value="12.99" name="fooby[8][]" />Gyros
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Jalapeno Extra Large" class="radio" value="9.99" name="fooby[9][]" />Jalapeno
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Mushroom Extra Large" class="radio" value="9.99" name="fooby[10][]" />Mushroom
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Onion Extra Large" class="radio" value="9.99" name="fooby[11][]" />Onion
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pepperoni Extra Large" class="radio" value="11.99" name="fooby[12][]" />Pepperoni
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Pineapple Extra Large" class="radio" value="9.99" name="fooby[13][]" />Pineapple
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Sausage Extra Large" class="radio" value="11.99" name="fooby[14][]" />Sausage
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Spinach Extra Large" class="radio" value="9.99" name="fooby[15][]" />Spinach
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Tomato Extra Large" class="radio" value="9.99" name="fooby[16][]" />Tomato
+                                    </div>
+
+                                    <div class="col-md-6 col-lg-4 col-xs-12 col-sm-6 ">
+                                        <input type="checkbox" data-name="Turkey Ham Extra Large" class="radio" value="11.99" name="fooby[17][]" />Turkey Ham
+                                    </div>
+
+                                </div>
+                                <!--extra large-->
+
+                            </div>
+
+
+
+
+                            <h5 id="totalpice">Single Pizza Price With Toppings </h5> 
+
+
+                                <h3 id="topping">Topings : </h3>
+
+                            </div>
+                        <a id="sbmt" class="btn btn-white btn-outline-white mt-3 ftco-animate">ADD TO CART</a>
+                    </div>
+                    <div class="col-md-12 d-flex align-items-center">
+                        <div class="tab-content ftco-animate" id="v-pills-tabContent">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="modal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div style="overflow-x:auto;" class="ftco-animated">
+                    <table id="mytable" class="table table-striped table-dark ft ftco-animate justify-content-center">
+
+                        <thead class="ftco-animated">
+                            <tr class="ftco-animated">
+                                <th scope="col">Image</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Price</th>
+                            </tr>
+                        </thead>
+
+
+
+
+                        <tbody class="ftco-animate"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="location.href='@Url.Action("add_to_cart")'" class="btn btn-primary"> Cart Details  </button>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+
+    $(document).ready(function () {
+
+        var totalprice = 0;
+
+        $(".smallcheckboxes").hide();
+        $(".mediumcheckboxes").hide();
+        $(".largecheckboxes").hide();
+        $(".extralargecheckboxes").hide();
+
+        var toppings = "";
+    
+        $("#qty").on("change", function () {
+            var price = 0 ;
+            var qty = parseInt($("#qty").val());
+          
+            
+            price += parseFloat($("#price").text().match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+           
+            $("#totalpice1").text("Total Price : " + price.toFixed(2) * qty + "$");
+          
+        });
+
+        $("#sbmt").on("click", function () {
+
+            debugger;
+
+            var id = $("#id").text();
+            var qty = $("#qty").val();
+            var price = parseFloat($("#totalpice").text().match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+            var sizes = $("#sizes option:selected").text();
+            var crust = $("#crust option:selected").text();
+            var desc = "Crust Type : " + crust + " , ";
+            var itemname = $("#name").text();
+            var img = $("#img").text();
+
+            if (crust != "-- Select Crust --") {
+            
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/add_to_cart", //url to get list
+
+                    data: { price: price, qty: qty, id: id, name: itemname, image: img, desc: desc, topping: ", Topping(s) : "  + toppings, sizes: sizes, crust: crust, sizes: " , Size " + sizes },
+                    //dataType: "json",
+                    success: function (response) {
+                        //url = "";
+                        //                  location.replace("/Home/add_to_cart");
+
+                        $mymodal = $("#modal1");
+                        $mymodal.find("div.modal-body #mytable tbody").html(response);
+                        $mymodal.modal("show");
+
+                    }
+                });
+            }else {
+                alertify.message(" Please Select Crust ");
+            }
+
+        });
+
+        $("#sizes").on("change", function () {
+            var sizes = $("#sizes option:selected").text();
+            $("#topping").text("");
+            debugger;
+            
+            if (sizes == "Small") {
+                toppings = "";
+                uncheckall();
+                //$(".checkboxes").html(smallcheckboxes);
+
+                $(".smallcheckboxes").show();
+                $(".mediumcheckboxes").hide();
+                $(".largecheckboxes").hide();
+                $(".extralargecheckboxes").hide();
+
+
+            }
+            if (sizes == "Medium") {
+                toppings = "";
+                uncheckall();
+
+                //$(".checkboxes").html(mediumcheckboxes);
+
+                $(".smallcheckboxes").hide();
+                $(".mediumcheckboxes").show();
+                $(".largecheckboxes").hide();
+                $(".extralargecheckboxes").hide();
+
+            }
+            if (sizes == "Large") {
+                toppings = "";
+                uncheckall();
+
+
+                //$(".checkboxes").html(largecheckboxes);
+
+                $(".smallcheckboxes").hide();
+                $(".mediumcheckboxes").hide();
+                $(".largecheckboxes").show();
+                $(".extralargecheckboxes").hide();
+
+                
+            }
+            if (sizes == "Extra Large") {
+                toppings = "";
+                uncheckall();
+                
+                //$(".checkboxes").html(extralargecheckboxes);
+                $(".smallcheckboxes").hide();
+                $(".mediumcheckboxes").hide();
+                $(".largecheckboxes").hide();
+                $(".extralargecheckboxes").show();
+
+            }
+
+
+            var price = $("#sizes").val();
+            //$("#qty").val();
+            $("#totalpice").text("Total Price : " + price + "$");
+            $("#totalpice1").text("Total Price : " + price + "$");
+            //var piece = $("#pieces").val();
+            $("#price").text(" Single Pizza Price : " + price + "$");
+
+        });
+
+        $(document).on("change","input:checkbox", function() {  
+           
+            debugger;
+            var selectedname = new Array();
+            var selectedprice = new Array();
+            var price = parseFloat($("#price").text().match(/-?(?:\d+(?:\.\d*)?|\.\d+)/)[0]);
+
+            var $box = $(this);
+            
+
+                $("input[type=checkbox]:checked").each(function () {
+                    selectedname.push($(this).data("name"));
+                    price += parseFloat( (this.value));
+                    
+                });
+
+                if (selectedname.length < 5) {
+                    toppings =  selectedname.join(",").toString();
+                    
+                    $("#topping").text(toppings);
+                    $("#totalpice").text("Single Pizza Price With Toppings : " + price.toFixed(2) + "$");
+
+                } else {
+                    alertify.message("you can select only 4 topping(s)");
+
+                    $(this).prop("checked", false);
+                }    
+
+        });
+            
+    });
+    function uncheckall(){
+        $("input[type=checkbox]:checked").each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+        //$("input:checkbox").on('change', function () {
+        //    var $box = $(this);
+        //    var selectedprice = new Array();
+        //    var selectedname  = new Array();
+        //    if ($box.is(":checked")) {
+        //    // in the handler, 'this' refers to the box clicked on
+        //    debugger;
+
+        //        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        //        var val =$box.attr("value");
+        //        $(group).prop("checked", false);
+        //        $box.prop("checked", true);
+        //        //alert(val);
+        //            $("input[type=checkbox]:checked").each(function () {
+
+        //            if (selectedprice.length < 4) {
+        //               // alert("Selected values : " + selectedprice.join(","));
+        //                selectedprice.push(this.value);
+        //                selectedname.push($(this).data("name"));
+                        
+        //             //   alert("Selected Toppings are : " + selectedname.join(","));
+                        
+        //            }else {
+        //                alert("you only can select 3 toppings");
+        //                $box.prop("checked", false);
+                        
+        //                selectedprice.splice(this.value);
+        //                selectedname.splice($(this).data("name"));
+        //            }
+        //      });
+ 
+        //    } else {
+        //        $box.prop("checked", false);
+        //        selectedprice.splice(this.value);
+        //        selectedname.splice($(this).data("name"));
+                
+        //    }
+        //    $("#topping").text(selectedname.join(","));
+        //});
+       
+        //$('input:checkbox').on("change", function () {
+        //    debugger;
+
+        //    var total = 0;
+        //    var topp = "";
+        //    var $box = $(this);
+        //    if ($box.is(":checked")) {
+
+        //        // the name of the box is retrieved using the .attr() method
+        //        // as it is assumed and expected to be immutable
+        //        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        //        var val = $box.attr("value");
+        //      //  alert(val);
+
+        //        // the checked state of the group/box on the other hand will change
+        //        // and the current value is retrieved using .prop() method
+        //        $(group).prop("checked", false);
+        //        $box.prop("checked", true);
+        //     $('input:checkbox:checked').each(function () { // iterate through each checked element.
+        //        total += isNaN(parseFloat($(this).val())) ? 0 : parseFloat($(this).val());
+        //        topp  += ($(this).data("name") ? $(this).data("name") : "" ) + ",";
+        //    });
+        //     //$("#totalpice").text("Total Price : " + total + "$");
+        //     //$("#topping").text(topp);
+
+        //    } else {
+        //        $box.prop("checked", false);
+        //        $("#totalpice").text(total);
+        //        $("#topping").text(topp)
+        //    }
+        // //   totalprice += total;
+        //    //alert(topp);
+        //    $("#totalpice").text(total);
+        //    $("#topping").text(topp);
+
+        //});
+
+
+        //$("input:checkbox").on("change",function () {
+            
+        //    debugger;
+  
+        //    //Create an Array.
+        //    var selectedprice = new Array();
+        //    var selectedname  = new Array();
+        //    var $box = $(this);
+        //    if ($box.is(":checked")) {
+        //        var group = "input:checkbox[name='" + $box.attr("name") + "']";
+        //        $(group).prop("checked", false);
+        //        $box.prop("checked", true);
+
+        //        //Reference the CheckBoxes and insert the checked CheckBox value in Array.
+        //        $("input[type=checkbox]:checked").each(function () {
+
+        //            selectedprice.push(this.value);
+        //            selectedname.push($(this).data("name"));
+        //        });
+ 
+        //        //Display the selected CheckBox values.
+        //        if (selectedprice.length < 4) {
+        //            $("#topping").text(selectedname.join(",") + "Price : " + selectedprice.join(","));
+        //        }else {
+        //            alert("you only can select 3 toppings");
+        //        }
+        //    }
+        //    else {
+        //        $box.prop("checked", false);
+        //        selectedname.slice($(this).data("name"));
+        //        $("#topping").text(selectedname.join(",") + "Price : " + selectedprice.join(","));
+
+
+        //        //        $("#totalpice").text(total);
+        //        //        $("#topping").text(topp)
+        //    }
+        //});
+</script>
+
+
+

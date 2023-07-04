@@ -1,0 +1,169 @@
+﻿
+
+
+@Html.Partial("_sliderPartial")
+<!-- render body -->  
+
+<section class="ftco-section contact-section">
+    <div class="container mt-5">
+        <div class="row block-9">
+            <div class="col-md-4 contact-info d-flex ftco-animate ">
+                <div class="row justify-content-center">
+                    <div class="col-md-12  heading-section text-center mb-4">
+                        <h5 class="h4">Contact Information</h5>
+                        <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+
+                    </div>
+                    <hr />
+                    <hr />
+                    <div class="col-md-12 mb-3">
+                        <p><span>Address 1:</span> 245 S Roselle Rd. Schaumburg, IL 60193</p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Phone:</span> <a href="tel://1234567920">(847) 534-0910</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Address 2:</span> Mama Maria Des Plaines</p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Phone:</span> <a href="tel://1234567920">(847) 297-7181</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Email:</span> <a href="mailto:info@yoursite.com">info@yoursite.com</a></p>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <p><span>Website:</span> <a href="#">mamammaria</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            
+            <div class="col-md-6 d-flex ftco-animate ">
+                <form action="@Url.Action("SendEmail")" id="searchForm" class="contact-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="Your Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="receiver" class="form-control" placeholder="Your Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="subject" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="message" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>
+                @*<form  class="contact-form">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" id="name" class="form-control" placeholder="Your Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" id="receiver" class="form-control" placeholder="Your Email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" class="form-control" placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" id="btn" value="Send Message" class="btn btn-primary py-3 px-5">
+                    </div>
+                </form>*@
+            </div>
+        </div>
+    </div>
+ 
+</section>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+
+
+
+<script type='text/javascript'>
+
+
+    $(document).ready(function () {
+
+       //  Attach a submit handler to the form
+        $("#searchForm").submit(function (event) {
+
+            //alert("hello")
+            // Stop form from submitting normally
+        event.preventDefault();
+        debugger;
+
+            // Get some values from elements on the page:
+            var $form = $(this),
+              name = $form.find("input[name='name']").val(),
+              receiver = $form.find("input[name='receiver']").val(),
+              subject = $form.find("input[name='subject']").val(),
+              message = $form.find("textarea[name='message']").val(),
+              url = $form.attr("action");
+
+
+            // Send the data using post
+            var posting = $.post(url, { name: name, receiver: receiver, subject: subject, message: message });
+      
+            posting.success(function () {
+                alertify.success('Email Sent');
+            });
+
+            posting.fail(function (response) {
+                alertify.success('Email Sent');
+            });
+
+        });
+
+    });
+
+
+    @*$(document).ready(function () {
+
+
+        $('#btn').click(function () {
+            alert("clicked")
+            debugger;
+            var name = $('#name').val;
+
+            var receiver = $('#receiver').val;
+
+            var subject = $('#subject').val;
+
+            var message = $('#message').val;
+
+            var request = $.ajax({
+                url: "@Url.Action("SendEmail")",
+                method: "POST",
+                data: { receiver: receiver, name: name, subject: subject, message: message },
+            dataType: "html"
+        });
+
+        request.done(function (msg) {
+            alert(" Email Send ");
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            alert("Something Went Worng : ", textStatus);
+        });
+
+    });
+    });*@
+
+
+</script>

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Pizza.StockHistory>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.quantityConsumed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stock.QuantityRemainig)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.quantityConsumed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock.QuantityRemainig)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.stockHistoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.stockHistoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.stockHistoryID })
+        </td>
+    </tr>
+}
+
+</table>

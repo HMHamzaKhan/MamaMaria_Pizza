@@ -1,0 +1,168 @@
+﻿@model  List<Pizza.Models.CustomerDetails>
+@{
+    ViewBag.Title = "order";
+    Layout = "~/Views/Shared/_sidePanelPage.cshtml";
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
+<div class="row" style="padding:15px;">
+    <div class="col-md-1" style="align-content:center;"><label> From </label></div>
+    <div class="col-md-4"><input id="fromdate" type="date" class="form-control" /></div>
+    <div class="col-md-1"><label> To </label></div>
+    <div class="col-md-4"><input id="todate" type="date" class="form-control" /></div>
+    <div class="col-md-1"><button id="btnSearch" class="btn btn-outline-success">  <i class="fa fa-search"></i> </button></div>
+    <div class="col-md-1"><button id="btnRefresh" class="btn btn-outline-primary">  <i class="fa fa-refresh"></i> </button></div>
+</div>
+<div style="overflow-x:auto;" class="ftco-animated">
+    <table id="table" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Order Code</th>
+                <th scope="col">Name</th>
+                <th scope="col">Ordered On</th>
+                <th scope="col">Number</th>
+                <th scope="col">Total Price</th>
+                 <th scope="col">Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="rowcart">
+                    <th class="align-middle" scope="row"><button onclick="window.location = '@Url.Action("get_order_by_id", new { ordercode = @item.ordecode })'" class="btn btn-outline-dark">@item.ordecode</button></th>
+                    <td class="align-middle name">@item.FristName</td>
+                    <td class="align-middle">@item.Datetime</td>
+                    <td class="align-middle">@item.Contact</td>
+                    <td class="align-middle price">@item.toalprice</td>
+                    <td class="align-middle"><p class="justforpointer" data-toggle="popover" data-placement="left" title="Remarks" data-content="@item.remarks" style="display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 200px;">@item.remarks</p></td>
+                    @*<td class="align-middle">
+                            <div class="input-group mb-3 ">
+                                <input type="text" class="form-control align-middle" placeholder="Remarks" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append align-middle">
+                                    <button class="btn btn-outline-success" type="button">OK</button>
+                                </div>
+                            </div>
+                        </td>*@
+
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"> </td>
+                <td colspan="2" id="totalprice" style="color: ButtonShadow; text-align:center;"> <b> Total Price : </b> </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+@*<script src="~/Content/vendor/jquery/jquery.min.js"></script>*@
+<style>
+    .popover {
+        padding: 15px;
+        color: ButtonShadow;
+        opacity: 1 !important;
+        background-color: #F2F2F2;
+        margin-right: 20px;
+    }
+
+    .justforpointer {
+        cursor: pointer;
+    }
+</style>
+<script>
+
+    $(document).ready(function () {
+
+        totalPrice();
+        $('table tbody tr td p').popover();//.popover();
+
+    });
+
+    $("#checkAll").change(function () {
+        $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
+
+    $("#btnSearch").click(function () {
+        var fromdate = $("#fromdate").val();
+        var todate = $("#todate").val();
+
+        if (fromdate == "" || todate == "") {
+            alertify.message("Please select date range");
+        } else {
+            alertify.success("From : " + fromdate + " To Date : " + todate);
+
+            $.ajax({
+                type: "GET",
+                url: "/Order/orderRange", //url to get list
+
+                data: { from: fromdate, to: todate },
+                success: function (response) {
+
+                    alertify.success("Search Result");
+                    $("#table tbody").html(response);
+                    totalPrice();
+
+                },
+                error: function (error) {
+                    console.log(error);
+                    alertify.error("check log");
+
+
+                },
+                complete: function () {
+                    // Handle the complete event
+                    // $("#modal").modal("show");
+                }
+            });
+
+        }
+    });
+
+    $("#btnRefresh").click(function () {
+        $.ajax({
+            type: "GET",
+            url: "/Order/Refresh", //url to get list
+            success: function (response) {
+
+                alertify.success("Refresh");
+                $("#table tbody").html(response);
+                totalPrice();
+
+            },
+            error: function (error) {
+                console.log(error);
+                alertify.error("check log");
+
+            },
+            complete: function () {
+                // Handle the complete event
+                // $("#modal").modal("show");
+            }
+        });
+    });
+
+    function totalPrice() {
+        debugger;
+        var total = 0
+        //        var rowCount = $('#table > tbody > tr').length;
+        //        alert(rowCount);
+        $("tr.rowcart").each(function () {
+            var price = parseFloat($(this).find("td.price").text());
+
+            total += price;
+        });
+        $("#totalprice").text("Total Price : " + total.toFixed(2) + "$");
+
+    }
+</script>

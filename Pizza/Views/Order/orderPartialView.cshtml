@@ -1,0 +1,22 @@
+﻿@model  List<Pizza.Models.CustomerDetails>
+@foreach (var item in Model)
+{
+    <tr class="rowcart">
+        <th class="align-middle" scope="row"><button onclick="window.location = '@Url.Action("get_order_by_id", new { ordercode = @item.ordecode })'" class="btn btn-outline-dark">@item.ordecode</button></th>
+        <td class="align-middle name">@item.FristName</td>
+        <td class="align-middle">@item.Datetime</td>
+        <td class="align-middle">@item.Contact</td>
+        <td class="align-middle price">@item.toalprice</td>
+        <td class="align-middle"><div class="col-auto my-1"><div class="custom-control custom-checkbox mr-sm-2"><input type="checkbox" class="custom-control-input" id="@item.ID"><label class="custom-control-label" for="@item.ID">Confirm</label></div></div></td>
+        <td class="align-middle"><p class="justforpointer" data-toggle="popover" data-placement="left" title="Remarks" data-content="@item.remarks" style="display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 200px;">@item.remarks</p></td>
+         @*< class="align-middle" td><input class="form-control" /></td>*@
+        @*<td class="align-middle">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Remarks" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="button">OK</button>
+                </div>
+            </div>
+        </td>*@
+    </tr>
+}
